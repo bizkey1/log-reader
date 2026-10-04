@@ -22,6 +22,19 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Check project structure 
+        run: | 
+          Write-Host "CURRENT DIRECTORY:" 
+          Get-Location
+        
+          Write-Host "`nROOT:"
+          Get-ChildItem
+        
+          Write-Host "`nSRC:"
+          Get-ChildItem src -Force
+          Write-Host "`nALL PYTHON FILES:"
+          Get-ChildItem -Recurse -Filter *.py | Select-Object FullName
+      
       - name: Build executable
         run: |
           pyinstaller --clean --onefile --windowed --name "LogReader" src/main.py
